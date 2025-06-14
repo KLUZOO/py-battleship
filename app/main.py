@@ -95,7 +95,7 @@ class Battleship:
                        3: 0,
                        4: 0,
                        }
-        list_ships = [Ship(coord[0], coord[1]) for coord in ships]
+        list_ships = [Ship(start, end) for start, end in ships]
         name_ship = 0
 
         for ship in list_ships:
