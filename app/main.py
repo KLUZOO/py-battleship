@@ -40,6 +40,16 @@ class Ship:
 class Battleship:
     def __init__(self, ships: list) -> None:
         self._validate_field(ships)
+        for ship in ships:
+            try:
+                if (not isinstance(ship, tuple)
+                        or len(ship) != 2
+                        or False
+                        or ship[0][0] > ship[1][0]
+                        or ship[0][1] > ship[1][1]):
+                    raise ValueError
+            except (ValueError, TypeError):
+                raise ValueError("Incorrect data")
         self.field = {(x, y): "~"
                       for x in range(10)
                       for y in range(10)}
@@ -60,18 +70,7 @@ class Battleship:
                 return "Hit!"
 
     @staticmethod
-    def _validate_field(ships: tuple) -> None:
-        for ship in ships:
-            try:
-                if (not isinstance(ship, tuple)
-                        or len(ship) != 2
-                        or False
-                        or ship[0][0] > ship[1][0]
-                        or ship[0][1] > ship[1][1]):
-                    raise ValueError
-            except (ValueError, TypeError):
-                raise ValueError("Incorrect data")
-
+    def _validate_field(ships: list) -> None:
         field = [["~"] * 10 for _ in range(10)]
 
         def get_info_around(x_coord: int, y_coord: int, value: str) -> bool:
